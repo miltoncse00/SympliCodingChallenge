@@ -1,0 +1,18 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/WooliesxChallenge/v16
+/.vs/WooliesxChallenge/v15/Server/sqlite3
+/WooliesxChallenge/bin
+/WooliesxChallenge/obj
+/WooliesxChallenge.Application/bin
+/WooliesxChallenge.Application/obj
+/WooliesxChallenge.Domain/bin
+/WooliesxChallenge.Domain/obj
+/WooliesxChallenge.Proxy/obj
+/.vs
+/WooliexChallenge.UnitTests/obj
+/WooliesxChallenge.Proxy/bin/Debug
+/WooliexChallenge.UnitTests/bin/Debug/netcoreapp3.1
+/WooliesxChallenge.sln.DotSettings.user
