@@ -30,9 +30,9 @@ And Response
 
 **{**
 
-**&quot;positions&quot;**** : ****&quot;2,3&quot; ****,**
+"positions"* : "2,3",
 
-**&quot;searchEngineType&quot;**** : ****&quot;Google&quot;**
+**&quot;searchEngineType&quot;**** : "Google"
 
 **}**
 Rendered
@@ -54,9 +54,9 @@ Schema of the request is
 
 {
 
-"keyword": "e settlement"** ,**
+"keyword": "e settlement" ,
 
-"site": "sympli.com"** ,**
+"site": "sympli.com" ,
 
 "searchEngineType": "Google"
 
@@ -66,17 +66,10 @@ And Response
 
 {
 
-"positions"** : ****"2,3" **,
+"positions" : "2,3",
 
-"searchEngineType"** : **"Google"
+"searchEngineType"** : "Google"
 
 }
 
-Want to convert another document?
 
-Feedback
-Source
-Donate
-Terms
-Privacy
-@benbalter
