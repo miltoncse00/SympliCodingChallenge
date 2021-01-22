@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace InfoTrack.Assignment.Domain
+namespace CodingChallenge.Domain
 {
     public enum SearchEngineType
     {

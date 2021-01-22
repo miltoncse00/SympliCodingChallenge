@@ -1,6 +1,5 @@
 ﻿using CodingChallenge.Domain;
 using CodingChallenge.Domain.Interfaces;
-using InfoTrack.Assignment.Domain;
 
 namespace CodingChallenge.Application
 {

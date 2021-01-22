@@ -24,11 +24,15 @@ namespace CodingChallenge.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<SearchConfiguration>(Configuration.GetSection(SearchConfiguration.Setting));
+            services.Configure<CacheConfiguration>(Configuration.GetSection(CacheConfiguration.Setting));
+
+
+            services.AddMemoryCache();
 
             services.AddSingleton<ISearchEngineProvider, SearchEngineProvider>();
             
-            var searchProvider = services.BuildServiceProvider().GetService<ISearchEngineProvider>();
             services.AddSingleton<ISearchService, SearchService>();
+            
             services.AddControllers();
 
             services.AddControllers()

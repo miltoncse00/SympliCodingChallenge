@@ -1,5 +1,4 @@
-﻿using InfoTrack.Assignment.Domain;
-
+﻿
 namespace CodingChallenge.Domain.Interfaces
 {
     public interface ISearchEngineProvider

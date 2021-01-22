@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using CodingChallenge.Domain;
 using CodingChallenge.Domain.Interfaces;
-using InfoTrack.Assignment.Domain;
 
 namespace CodingChallenge.Application
 {

@@ -1,6 +1,5 @@
 using CodingChallenge.Application;
 using CodingChallenge.Domain;
-using InfoTrack.Assignment.Domain;
 using Xunit;
 
 namespace CodingChallenge.UnitTests

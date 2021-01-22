@@ -22,19 +22,9 @@ namespace CodingChallenge.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> Search( SearchInput searchInput)
         {
-            try
-            {
+            
                 var result = await _searchService.Search(searchInput);
                 return Ok(result);
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception)
-            {
-                return StatusCode((int) HttpStatusCode.InternalServerError);
-            }
         }
     }
 }

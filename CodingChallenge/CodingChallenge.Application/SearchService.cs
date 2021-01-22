@@ -1,45 +1,51 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
 using System.Threading.Tasks;
 using CodingChallenge.Domain;
 using CodingChallenge.Domain.Interfaces;
-using InfoTrack.Assignment.Domain;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 
 namespace CodingChallenge.Application
 {
     public interface ISearchService
     {
-        Task<List<SearchResult>> Search(SearchInput searchInput);
+        Task<SearchResult> Search(SearchInput searchInput);
     }
 
     public class SearchService : ISearchService
     {
-        private const string InvalidInputUserMustProvideSiteValueForSearch = "Invalid input.User must provide Site value for search";
         private readonly SearchConfiguration _searchConfig;
         private readonly ISearchEngineProvider _provider;
-
-        public SearchService(IOptions<SearchConfiguration> searchOptions, ISearchEngineProvider provider)
+        private readonly IMemoryCache _cache;
+        private readonly CacheConfiguration _cacheConfiguration;
+        public SearchService(IOptions<SearchConfiguration> searchOptions, ISearchEngineProvider provider, IMemoryCache cache, IOptions<CacheConfiguration> cacheOptions)
         {
             _searchConfig = searchOptions.Value;
             _provider = provider;
+            _cache = cache;
+            _cacheConfiguration = cacheOptions.Value;
         }
 
-        public async Task<List<SearchResult>> Search(SearchInput searchInput)
+        public async Task<SearchResult> Search(SearchInput searchInput)
         {
-            if(searchInput == null || string.IsNullOrWhiteSpace(searchInput.Site))
-                throw new ValidationException(InvalidInputUserMustProvideSiteValueForSearch);
+            string cacheKey = $"{searchInput.Keyword}_{searchInput.Site}_{searchInput.SearchEngineType}";
+            if (!_cache.TryGetValue(cacheKey, out SearchResult searchResult))
+            {
+                var searchStrategy =
+                    _provider.GetSearchStrategy(searchInput.SearchEngineType, _searchConfig);
 
-            var searchResults = new List<SearchResult>();
-            var searchStrategy =
-                _provider.GetSearchStrategy(searchInput.SearchEngineType, _searchConfig);
+                searchResult = await searchStrategy.Search(new SearchContext
+                    {SearchInput = searchInput});
 
-            var infoTrackSearchResult = await searchStrategy.Search(new SearchContext
-            { SearchInput = searchInput});
+                var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(_cacheConfiguration.MaxTimeMins)
+                };
 
-            searchResults.Add(infoTrackSearchResult);
+                _cache.Set(cacheKey, searchResult, cacheEntryOptions);
+            }
 
-            return searchResults;
+            return searchResult;
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using InfoTrack.Assignment.Domain;
-
-namespace CodingChallenge.Domain
+﻿namespace CodingChallenge.Domain
 {
     public class SearchResult
     {
